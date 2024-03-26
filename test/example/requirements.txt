@@ -10,3 +10,6 @@ cssselect
 coverage
 flake8
 tox
+django-comments-dab[markdown]
+
+
