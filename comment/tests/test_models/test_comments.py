@@ -7,6 +7,20 @@ from comment.conf import settings
 from comment.models import Comment
 from comment.tests.base import BaseCommentManagerTest, RequestFactory
 
+from django.urls import reverse
+from django.test import TestCase
+from .models import Comment
+
+
+class CommentPostTest(TestCase):
+    def test_post_comment_success(self):
+        self.client.login(username='test', password='test')
+        url = reverse('comment:submit_comment')  # Adjust to your URL name
+        data = {'content': 'This is a test comment', 'post_id': 1}  # Adjust data as necessary
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 302)  # Assuming redirection after successful post
+        self.assertEqual(Comment.objects.count(), 1)
 
 class CommentModelTest(BaseCommentManagerTest):
     @classmethod
